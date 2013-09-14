@@ -1,0 +1,61 @@
+- model_name = params[:controller].sub(/s$/, '')
+- dir = params[:dir] == 'asc' ? 'desc' : 'asc'
+.row
+  %h1.page-header 
+    All
+    = model_name.titleize + "s"
+
+.row
+  .col-md-6
+    - if @query.length > 0
+      .well.well-small
+        %h3
+          Filters:
+        %table.table.table-condensed.table-hover
+          %tbody
+            - @query.each do |key, value|
+              %tr
+                %td
+                  %strong 
+                    = key
+                %td
+                  = value
+                %td
+                  = link_to "Remove", params.except(key).except(:page), class: "label label-important"
+              
+    - params.delete(:page)
+  .col-md-6
+    .pull-right
+      = link_to "New #{model_name.titleize}", new_polymorphic_path(model_name), class: "btn btn-success" 
+
+.row
+  = will_paginate @data_values
+
+
+- if @data_values.length > 0
+  .row
+    %table.table.table-hover
+      %thead
+        %tr 
+          - @data_values[0].attributes.each do |key, value|
+            - if !HIDDEN_KEYS.include? key
+              %th
+                = link_to key.titleize, params.merge(order: key, dir: dir)
+          %th
+            .text-muted.pull-right
+              Click heading to sort, click again to reverse sort.
+
+      %tbody
+        - @data_values.each do |value|
+          %tr
+            - value.attributes.each do |key, v|
+              - if !HIDDEN_KEYS.include? key
+                %td
+                  = link_to v, params.merge("#{key}" => v)
+            %td{style: "text-align: center;"}
+              = link_to 'Show', value, class: "btn btn-default"
+              = link_to 'Edit', edit_polymorphic_path(value), class: "btn btn-warning"
+              = link_to 'API Query', value.to_api_query, class: "btn btn-info"
+
+  = will_paginate @data_values
+

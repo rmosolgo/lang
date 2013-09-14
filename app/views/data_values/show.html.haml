@@ -1,0 +1,13 @@
+
+%h1.page-header 
+	= @data_value.to_english
+
+- @data_value.attributes.each do |key, value|
+	%p
+		%strong
+			= key.humanize.capitalize + ":"
+		= value
+
+= link_to 'Edit', edit_polymorphic_path(@data_value), class: "btn btn-warning" 
+= link_to 'List All', polymorphic_path(@data_value.class), class: "btn btn-default"
+= link_to 'Delete', @data_value, method: :delete, confirm: "Are you sure?", class: "btn btn-danger"

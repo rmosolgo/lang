@@ -1,0 +1,17 @@
+= simple_form_for @data_value do |f|
+  - if @data_value.errors.any?
+    .alert.alert-warning
+      %p
+        %strong
+          = "#{pluralize(@data_value.errors.count, "error")}:"
+      %ul.list-unstyled
+        - @data_value.errors.full_messages.each do |msg|
+          %li= msg
+  - @data_value.attributes.each do |key, value|
+    - unless HIDDEN_KEYS.include? key
+      .form-group
+        = f.input key.to_sym, as: :string, input_html: {class: "form-control"}
+  
+  .form-group
+    = f.button :submit, class: "btn btn-success"
+

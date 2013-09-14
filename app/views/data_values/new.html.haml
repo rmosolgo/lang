@@ -1,0 +1,7 @@
+%h1.page-header
+	New
+	= @data_value.class.name.titleize
+
+= render 'data_values/form'
+
+= link_to 'Back', @data_value.class, class: "btn btn-default"

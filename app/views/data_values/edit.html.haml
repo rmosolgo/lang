@@ -1,0 +1,9 @@
+%h1.page-header
+	Editing
+	= @data_value.class.name.titleize
+
+= render 'data_values/form'
+
+
+= link_to 'Show', @data_value, class: "btn btn-default"
+= link_to 'List All', polymorphic_path(@data_value.class), class: "btn btn-default"
