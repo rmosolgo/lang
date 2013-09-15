@@ -107,16 +107,13 @@ class DataValuesController < ApplicationController
         #   end
         end
       end
-      
-      [:order, :dir, :page].each { |key| @query.merge!({key.to_s =>  class_params[key]}) if class_params[key] }
-
-      query
-
 
       data_values = @class
         .where(query)
         .order("#{query['order']} #{query['dir']}")
         .paginate(:page => class_params[:page], :per_page => 30)
+      
+      [:order, :dir, :page].each { |key| query.merge!({key.to_s =>  class_params[key]}) if class_params[key] }
 
       return [data_values, query]
     end
