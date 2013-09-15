@@ -1,0 +1,22 @@
+%tr
+  - value.attributes.each do |key, v|
+    - if !HIDDEN_KEYS.include? key
+      %td
+        - if v
+          = link_to v, params.merge("#{key}" => v)
+        - else
+          %i.text-muted &mdash;
+  - @class.reflect_on_all_associations.each do |association|
+    %td
+      - method_name = association.name
+      - association_value = value.send(method_name)
+      - if [:has_many, :has_and_belongs_to_many].include?(association.macro)
+        - association_value.each do |li|
+          = link_to li.to_english, li # params.merge(method_name => li)
+      - elsif [:belongs_to].include?(association.macro)
+        = link_to association_value.to_english, association_value
+  %td
+    .pull-right
+      = link_to 'Show', value, class: "btn btn-default btn-xs"
+      = link_to 'Edit', edit_polymorphic_path(value), class: "btn btn-warning btn-xs"
+      = link_to 'API Query', value.to_api_query, class: "btn btn-info btn-xs"

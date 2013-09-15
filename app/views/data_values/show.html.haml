@@ -1,12 +1,26 @@
 
 %h1.page-header 
-	= @data_value.to_english
+  = @data_value.to_english
 
 - @data_value.attributes.each do |key, value|
-	%p
-		%strong
-			= key.humanize.capitalize + ":"
-		= value
+  %p
+    %strong
+      = key.humanize.capitalize + ":"
+    = value
+
+- @class.reflect_on_all_associations.each do |association|
+  %p
+    - method_name = association.name
+    %strong
+      = method_name.to_s.humanize.capitalize + ":"
+    - association_value = @data_value.send(method_name)
+    - if [:has_many, :has_and_belongs_to_many].include?(association.macro)
+      %ul.list-unstyled
+        - association_value.each do |li|
+          %li
+            = link_to li.to_english, li # params.merge(method_name => li)
+    - elsif [:belongs_to].include?(association.macro)
+      = link_to association_value.to_english, association_value
 
 = link_to 'Edit', edit_polymorphic_path(@data_value), class: "btn btn-warning" 
 = link_to 'List All', polymorphic_path(@data_value.class), class: "btn btn-default"

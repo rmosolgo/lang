@@ -6,56 +6,38 @@
     = model_name.titleize + "s"
 
 .row
-  .col-md-6
+  .col-md-4.col-sm-6.col-xs-6
     - if @query.length > 0
-      .well.well-small
-        %h3
-          Filters:
-        %table.table.table-condensed.table-hover
-          %tbody
-            - @query.each do |key, value|
-              %tr
-                %td
-                  %strong 
-                    = key
-                %td
-                  = value
-                %td
-                  = link_to "Remove", params.except(key).except(:page), class: "label label-important"
+      = render partial: 'query'
               
     - params.delete(:page)
-  .col-md-6
+  .col-md-8.col-sm-6.col-xs-6
     .pull-right
       = link_to "New #{model_name.titleize}", new_polymorphic_path(model_name), class: "btn btn-success" 
 
-.row
-  = will_paginate @data_values
-
+= render partial: "paging"
 
 - if @data_values.length > 0
   .row
-    %table.table.table-hover
+    %table.table.table-condensed.table-hover
       %thead
         %tr 
-          - @data_values[0].attributes.each do |key, value|
+          - @class.column_names.each do |key|
             - if !HIDDEN_KEYS.include? key
               %th
                 = link_to key.titleize, params.merge(order: key, dir: dir)
+          - @class.reflect_on_all_associations.each do |association|
+            %th
+              - if [:has_many, :has_and_belongs_to_many, :belongs_to].include?(association.macro)
+                = link_to association.name.to_s.titleize, polymorphic_path(association.name.to_s.capitalize.singularize.constantize)
+                      
           %th
             .text-muted.pull-right
               Click heading to sort, click again to reverse sort.
 
       %tbody
         - @data_values.each do |value|
-          %tr
-            - value.attributes.each do |key, v|
-              - if !HIDDEN_KEYS.include? key
-                %td
-                  = link_to v, params.merge("#{key}" => v)
-            %td{style: "text-align: center;"}
-              = link_to 'Show', value, class: "btn btn-default"
-              = link_to 'Edit', edit_polymorphic_path(value), class: "btn btn-warning"
-              = link_to 'API Query', value.to_api_query, class: "btn btn-info"
+          = render partial: "value", object: value
 
-  = will_paginate @data_values
 
+= render partial: 'paging'

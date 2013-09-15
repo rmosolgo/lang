@@ -1,6 +1,7 @@
 class Sound < ActiveRecord::Base
+
   # relations
-  has_and_belongs_to_many :features 
+  has_and_belongs_to_many :features, uniq: true
   # validations
   validates_uniqueness_of :letter
 

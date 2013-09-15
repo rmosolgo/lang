@@ -1,7 +1,7 @@
 class Feature < ActiveRecord::Base
-
+  
   # relations
-  has_and_belongs_to_many :sounds
+  has_and_belongs_to_many :sounds, uniq: true
   
   # validations
   validates_uniqueness_of :name

@@ -14,6 +14,13 @@ GIT
       rails (>= 3.0.0, < 5)
       spork (>= 1.0rc0)
 
+GIT
+  remote: git://github.com/yrgoldteeth/bootstrap-will_paginate.git
+  revision: 994fbb96ab52d2bdbb6035e534060f9df18b34c6
+  specs:
+    bootstrap-will_paginate (0.0.9)
+      will_paginate
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -105,6 +112,10 @@ GEM
       coderay (~> 1.0.5)
       method_source (~> 0.8)
       slop (~> 3.4)
+    pry-rails (0.3.2)
+      pry (>= 0.9.10)
+    quiet_assets (1.0.2)
+      railties (>= 3.1, < 5.0)
     rack (1.5.2)
     rack-test (0.6.2)
       rack (>= 1.0)
@@ -184,6 +195,7 @@ PLATFORMS
 
 DEPENDENCIES
   anjlab-bootstrap-rails!
+  bootstrap-will_paginate!
   coffee-rails (~> 4.0.0)
   factory_girl_rails (~> 4.0)
   faker
@@ -193,6 +205,8 @@ DEPENDENCIES
   haml (~> 4.0.0)
   jquery-rails
   pg
+  pry-rails
+  quiet_assets
   rails (= 4.0.0)
   rspec-rails (~> 2.0)
   sass-rails (~> 4.0.0)

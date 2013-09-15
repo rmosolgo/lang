@@ -1,0 +1,14 @@
+.well.well-small
+  %h3
+    Filters:
+  %table.table.table-condensed.table-hover
+    %tbody
+      - @query.each do |key, value|
+        %tr
+          %td
+            %strong 
+              = key
+          %td
+            = value
+          %td
+            = link_to "Remove", params.except(key).except(:page), class: "label label-info"

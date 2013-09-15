@@ -21,13 +21,17 @@ gem 'simple_form'
 gem 'anjlab-bootstrap-rails', 
   require: 'bootstrap-rails',
   github: 'anjlab/bootstrap-rails'
-  
+gem 'bootstrap-will_paginate', 
+  github: 'yrgoldteeth/bootstrap-will_paginate'
+
 group :development do
   gem 'guard'
   gem 'spork-rails', :github => 'sporkrb/spork-rails'
   gem 'guard-rspec'
   gem 'guard-spork'
   gem 'rspec-rails', '~> 2.0'
+  gem 'pry-rails'
+  gem 'quiet_assets'
 
 end
 
