@@ -7,13 +7,13 @@ VOWEL_BACKNESSES = [
 ]
 
 VOWEL_HEIGHTS = [
-  'close',
-  'near_close',
-  'close_mid',
+  'high',
+  'near_high',
+  'high_mid',
   'mid',
-  'open_mid',
-  'near_open',
-  'open',
+  'low_mid',
+  'near_low',
+  'low',
 ]
 
 VOWEL_ROUNDEDNESSES = [

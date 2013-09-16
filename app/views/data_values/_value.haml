@@ -17,6 +17,6 @@
         = link_to association_value.to_english, association_value
   %td
     .pull-right
-      = link_to 'Show', value, class: "btn btn-default btn-xs"
+      = link_to 'Show', url_for(value), class: "btn btn-default btn-xs"
       = link_to 'Edit', edit_polymorphic_path(value), class: "btn btn-warning btn-xs"
       = link_to 'API Query', value.to_api_query, class: "btn btn-info btn-xs"

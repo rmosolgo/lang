@@ -11,15 +11,20 @@ FEATURE_SETS = [
   
   { feature_type: "place", values: CONSONANT_PLACES },
   { feature_type: "manner", values:  CONSONANT_MANNERS },
-  { feature_type: "voices", values: CONSONANT_VOICES },
+  { feature_type: "voice", values: CONSONANT_VOICES },
+  { feature_type: "type", values: CONSONANT_TYPES}
 
 ]
+
+Feature.find_each(&:destroy)
 
 FEATURE_SETS.each do |set|
   set[:values].each do |n| 
     Feature.find_or_create_by(name: n, feature_type: set[:feature_type]) 
   end
 end
+
+Sound.find_each(&:destroy)
 
 (VOWELS + CONSONANTS).each do |sound|
   new_sound = Sound.find_or_create_by(letter: sound[:letter])

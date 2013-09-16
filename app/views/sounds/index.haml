@@ -1,0 +1,24 @@
+- content_for :title, "International Phonetic Alphabet"
+.row
+  %h1.page-header
+    International Phonetic Alphabet
+
+.row
+  %table.table.table-condensed
+    %tr
+      %th
+      - Feature.places.each do |place|
+        %th.place
+          = place.name
+    - Feature.manners.each do |manner|
+      %tr
+        %th.manner
+          = manner.name
+        - these_sounds = Sound.send(manner.name)
+        - Feature.places.each_with_index do |place, idx|
+          %td
+            - if sound = these_sounds.send(place.name)        
+              = sound.map(&:letter).join(",")
+
+
+

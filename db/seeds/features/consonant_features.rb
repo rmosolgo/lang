@@ -25,12 +25,16 @@ CONSONANT_MANNERS = [
   'flap',
   'trill',
   'lateral',
-  'click',
-  'implosive',
-  'ejective',
   'affricate',
   'continuant',
   'occlusive',
+]
+
+CONSONANT_TYPES = [
+  'click',
+  'implosive',
+  'ejective',
+  'pulmonic'
 ]
 
 CONSONANT_VOICES = [

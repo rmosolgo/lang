@@ -3,12 +3,18 @@
   %head
     = render partial: "layouts/ga"
     %meta{name: "viewport", content: "width=device-width, initial-scale=1.0"}
-    %title Lang
+    %title 
+      - if content_for? :title
+        = yield :title
+        | Linguist
+      - else
+        Linguist
     = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true 
     = javascript_include_tag "application", "data-turbolinks-track" => true 
     = csrf_meta_tags
   %body
     = render partial: "layouts/header"
-    .container
+    
+    #content.container
       = yield
 
