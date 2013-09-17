@@ -3,6 +3,10 @@ class Sound < ActiveRecord::Base
   
   # relations
   has_and_belongs_to_many :features, -> { uniq }
+  def feature_names
+    features.map(&:name)
+  end
+
   # validations
   validates_uniqueness_of :letter
 
@@ -10,7 +14,7 @@ class Sound < ActiveRecord::Base
     warm_features!
     feature_name = method_name.to_s.singularize
     if ft = Feature.find_by(name: feature_name)
-      self.feature_scope(feature_name)
+      self.define_feature_scopes(feature_name)
       return self.send(method_name)
     end
     super(method_name, *args, &block)

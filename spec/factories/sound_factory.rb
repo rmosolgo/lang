@@ -7,7 +7,7 @@ FactoryGirl.define do
   factory :sound do |s|
     letter
     
-    [:nasal, :bilabial].each do |ft|
+    [:nasal, :bilabial, :fricative].each do |ft|
       trait ft do
         after(:build) do |object|
           object.features << Feature.find_or_create_by(name: ft.to_s)

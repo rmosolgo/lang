@@ -2,21 +2,32 @@ module FeatureScopeable
   extend ActiveSupport::Concern
 
   module ClassMethods
-    def feature_scope(feature_name)    
+    def define_feature_scopes(feature_name)    
       new_scope = -> { where("id in (
             select sound_id 
             from features_sounds
             left join features on features.id = feature_id
             where features.name = ?) ", feature_name) }
-      self.scope feature_name.to_sym, new_scope
-      self.scope feature_name.pluralize.to_sym, new_scope
+      new_antiscope = -> {
+        where("id not in(
+          select sound_id
+          from features_sounds
+          left join features on features.id = feature_id
+          where features.name = ?)", feature_name)}
+
+      scope feature_name.to_sym, new_scope
+      scope feature_name.pluralize.to_sym, new_scope
+      scope "not_#{feature_name}".to_sym, new_antiscope
+      scope "non_#{feature_name}".to_sym, new_antiscope
+      scope "non_#{feature_name.pluralize}".to_sym, new_antiscope
+      scope "not_#{feature_name.pluralize}".to_sym, new_antiscope
     end
 
     def warm_features!
       Feature.find_each do |feature|
         new_scope = feature.name
         begin
-          Sound.feature_scope(new_scope)
+          Sound.define_feature_scopes(new_scope)
         rescue
           raise "Can't create scope #{new_scope}"
         end

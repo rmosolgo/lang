@@ -15,8 +15,12 @@ describe Sound do
       create(:sound, :nasal, letter: "n")
       create(:sound, :bilabial, letter: "b")
       create(:sound, :bilabial, :nasal, letter: "m")
+      create(:sound, :fricative, letter: "s")
 
       @nasals = Sound.joins(:features).where(features: { name: "nasal" })
+      @non_nasals = Sound.all.reject { |sound| sound.feature_names.include?('nasal') }
+
+      @non_bilabials = Sound.all.reject { |sound| sound.feature_names.include?('bilabial') }
       @bilabials = Sound.joins(:features).where(features: { name: "bilabial" })
     end
 
@@ -27,10 +31,21 @@ describe Sound do
       Sound.bilabials.length.should == 2 
     end
 
+    it "filters by negative feature" do
+      @non_nasals.length.should == 2
+      @non_bilabials.length.should == 2
+
+      Sound.non_nasal.length.should == 2
+      Sound.non_nasals.length.should == 2
+      Sound.not_bilabial.length.should == 2
+      Sound.not_bilabials.length.should == 2
+    end
+
     it "chains" do
       bilabial_nasals = @nasals & @bilabials
       bilabial_nasals.length.should == 1
       Sound.bilabial.nasal.should == bilabial_nasals
+      Sound.bilabials.not_nasal.to_a.should == (@bilabials - @nasals)
     end
   end
 
