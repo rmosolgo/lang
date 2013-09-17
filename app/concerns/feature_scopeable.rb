@@ -1,26 +1,13 @@
 module FeatureScopeable
-
-  raise "Put these in two Modules, and build your scopes when included"
-  # Feature.feature_types.each do |feature_type|
-  #   new_scope = feature_type
-
-  #   begin 
-  #     Feature.send(new_scope)
-  #   rescue
-  #     p "Can't create scope #{new_scope}"
-  #   end
-  # end
-
   extend ActiveSupport::Concern
 
   included do
     Feature.find_each do |feature|
       new_scope = feature.name
-
       begin
-        Sound.send(new_scope)
+        Sound.feature_scope(new_scope)
       rescue
-        p "Can't create scope #{new_scope}"
+        raise "Can't create scope #{new_scope}"
       end
     end
   end
@@ -36,5 +23,4 @@ module FeatureScopeable
       self.scope feature_name.pluralize.to_sym, new_scope
     end
   end
-
 end
