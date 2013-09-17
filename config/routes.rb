@@ -9,8 +9,8 @@ Lang::Application.routes.draw do
   
   get '/sounds/:letter', 
     to: 'sounds#show_by_letter', 
-    as: 'sound_letter',
-    constraints: { letter: /[^0-9]/}
+    as: 'sound_letter' #,
+    # constraints: { letter: /[^0-9]/}
 
   resources :sounds
   resources :features

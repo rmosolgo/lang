@@ -7,6 +7,7 @@ class Sound < ActiveRecord::Base
   validates_uniqueness_of :letter
 
   def self.method_missing(method_name, *args, &block)
+    warm_features!
     feature_name = method_name.to_s.singularize
     if ft = Feature.find_by(name: feature_name)
       self.feature_scope(feature_name)
