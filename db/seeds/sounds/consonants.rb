@@ -174,13 +174,13 @@ AFFRICATES = [
 ]
 
 COARTICULATED_CONSONANTS=[
-  { letter: "ʍ", features: %w{pulmonic voiceless labial velar approximant} },
-  { letter: "w", features: %w{pulmonic voiced labial velar approximant} },
-  { letter: "ɥ", features: %w{pulmonic voiced labial palatal approximant} },
-  { letter: "ɧ", features: %w{pulmonic voiceless palatal alveolar fricative} },
-  { letter: "k͡p", features: %w{pulmonic voiceless labial velar stop} },
-  { letter: "ɡ͡b", features: %w{pulmonic voiced labial velar stop} },
-  { letter: "ŋ͡m", features: %w{pulmonic voiced labial velar nasal} },
+  { letter: "ʍ", features: %w{coarticulated pulmonic voiceless labial velar approximant} },
+  { letter: "w", features: %w{coarticulated pulmonic voiced labial velar approximant} },
+  { letter: "ɥ", features: %w{coarticulated pulmonic voiced labial palatal approximant} },
+  { letter: "ɧ", features: %w{coarticulated pulmonic voiceless palatal alveolar fricative} },
+  { letter: "k͡p", features: %w{coarticulated pulmonic voiceless labial velar stop} },
+  { letter: "ɡ͡b", features: %w{coarticulated pulmonic voiced labial velar stop} },
+  { letter: "ŋ͡m", features: %w{coarticulated pulmonic voiced labial velar nasal} },
 ]
 
 CONSONANTS = (

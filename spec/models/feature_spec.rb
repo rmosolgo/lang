@@ -28,6 +28,16 @@ describe Feature do
     end
   end
 
+  describe 'dynamic feature_names' do
+    before do
+      create :feature, :rounded
+    end
+
+    it "returns the feature" do
+      Feature.rounded.should == Feature.find_by(name: "rounded")
+    end
+  end
+  
   describe '#name' do
     before do 
       feature.save!

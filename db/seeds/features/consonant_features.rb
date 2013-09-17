@@ -26,6 +26,7 @@ CONSONANT_MANNERS = [
   'trill',
   'lateral',
   'affricate',
+  'coarticulated',
   'continuant',
   'occlusive',
 ]

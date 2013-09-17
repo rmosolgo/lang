@@ -10,15 +10,16 @@
       - Feature.places.each do |place|
         %th.place
           = place.name
-    - Feature.manners.each do |manner|
-      %tr
-        %th.manner
-          = manner.name
-        - these_sounds = Sound.send(manner.name)
-        - Feature.places.each_with_index do |place, idx|
-          %td
-            - if sound = these_sounds.send(place.name)        
-              = sound.map {|s| render(partial: "sound", object: s).strip }.join(", ").html_safe
-
-
-
+      - @consonant_rows.each do |row|
+        %tr
+          %th
+            = row[:name]
+          = render partial: 'sound_row', object: row[:sounds]
+      %tr.active
+        %th{colspan: Feature.places.count}
+          Laterals
+      - @lateral_rows.each do |row|
+        %tr
+          %th
+            = row[:name].sub(/Lateral\s/, "")
+          = render partial: 'sound_row', object: row[:sounds]

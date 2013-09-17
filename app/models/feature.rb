@@ -12,13 +12,19 @@ class Feature < ActiveRecord::Base
   include FeatureTypeScopeable
 
   def self.method_missing(method_name, *args, &block)  
-    warm_feature_types!  
     # possibly add a scope for a feature type
     possible_feature_type = method_name.to_s.singularize
     if self.feature_types.include?(possible_feature_type)
-      feature_type_scope(possible_feature_type)
+      warm_feature_types!
+      define_feature_type_scopes(possible_feature_type)
       return Feature.send(method_name)
     end
+
+    if Feature.find_by(name: method_name.to_s)
+      warm_feature_names!  
+      return  define_feature_name_scope(method_name.to_s)
+    end
+
     super(method_name, *args, &block)
   end
 
