@@ -18,7 +18,7 @@
         - Feature.places.each_with_index do |place, idx|
           %td
             - if sound = these_sounds.send(place.name)        
-              = sound.map(&:letter).join(",")
+              = sound.map {|s| render(partial: "sound", sound: s) }.join(",")
 
 
 
