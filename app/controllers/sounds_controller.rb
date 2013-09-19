@@ -21,9 +21,12 @@ class SoundsController < DataValuesController
   end
 
   def show_by_letter
-    sound = Sound.find_by(letter: params[:letter])
-    params[:id] = sound.id
-    show
+    @sound = Sound.find_by(letter: params[:letter])
+    render action: :show
+  end
+
+  def show
+    @sound = Sound.find(params[:id])
   end
 
   

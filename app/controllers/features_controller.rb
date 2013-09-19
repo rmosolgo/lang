@@ -6,9 +6,12 @@ class FeaturesController < DataValuesController
   end
 
   def show_by_name
-    feature = Feature.find_by(name: params[:feature_name])
-    params[:id] = feature.id
-    show
+    @feature = Feature.find_by(name: params[:feature_name])
+    render action: :show
+  end
+
+  def show
+    @feature = Feature.find(params[:id])
   end
 
 end

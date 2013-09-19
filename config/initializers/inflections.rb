@@ -14,3 +14,9 @@
 # ActiveSupport::Inflector.inflections(:en) do |inflect|
 #   inflect.acronym 'RESTful'
 # end
+
+class ::String
+  def dashify
+    self.gsub(/_/, "-")
+  end
+end

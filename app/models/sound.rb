@@ -10,6 +10,26 @@ class Sound < ActiveRecord::Base
   # validations
   validates_uniqueness_of :letter
 
+  VOWEL_ORDER = [
+    "height", "backness", "roundedness"
+  ]
+  CONSONANT_ORDER = [
+    "voice", "place", "manner",
+  ]
+  FULL_NAME_ORDER = VOWEL_ORDER + CONSONANT_ORDER
+
+  def to_s
+    letter
+  end
+
+  def full_name
+    name_words = []
+    FULL_NAME_ORDER.each do |feature_type|
+      name_words << features.where(feature_type: feature_type).map(&:name)
+    end
+    name_words.join(" ")
+  end
+
   def self.method_missing(method_name, *args, &block)
     warm_features!
     feature_name = method_name.to_s.singularize

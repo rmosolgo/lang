@@ -1,4 +1,5 @@
 - content_for :title, "International Phonetic Alphabet"
+- content_for :disqus_identifier, "sounds/index"
 .row
   %h1.page-header
     International Phonetic Alphabet
@@ -9,7 +10,7 @@
       %th
       - Feature.places.each do |place|
         %th.place
-          = place.name
+          = place.name.capitalize
       - @consonant_rows.each do |row|
         %tr
           %th

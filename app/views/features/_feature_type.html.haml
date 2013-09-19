@@ -1,6 +1,6 @@
 .col-md-2
   %p
     %strong 
-      = feature_type
+      = feature_type.capitalize
     %ul.list-unstyled
       = render partial: 'feature', collection: Feature.send(feature_type)

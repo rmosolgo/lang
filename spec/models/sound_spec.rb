@@ -10,6 +10,13 @@ describe Sound do
 
   it_behaves_like 'data value'
 
+  describe '#full_name' do
+    it {should respond_to(:full_name)}
+    it "returns a string" do
+      sound.full_name.should be_a(String)
+    end
+
+  end
   describe 'feature scopes' do
     before do
       create(:sound, :nasal, letter: "n")
