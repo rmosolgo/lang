@@ -1,0 +1,11 @@
+- content_for :title, @sound.letter
+- content_for :disqus_identifier, "sounds/#{@sound.letter}"
+
+.row
+  %h1.page-header
+    = @sound.letter
+    %small
+      = @sound.full_name.split(" ").map { |f| link_to(f.dashify.capitalize, feature_name_path(f))}.join(" ").html_safe
+
+.row
+  
