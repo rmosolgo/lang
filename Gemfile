@@ -10,6 +10,8 @@ gem 'unicorn'
 
 gem 'haml', '~> 4.0.0'
 
+gem 'wikipedia-client'
+
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
@@ -29,7 +31,6 @@ group :production do
 end
 
 group :development do
-  gem 'wikipedia-client'
   gem 'guard'
   gem 'spork-rails', :github => 'sporkrb/spork-rails'
   gem 'guard-rspec'
