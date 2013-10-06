@@ -4,7 +4,7 @@ describe Sound do
   let(:sound) { build :sound }
 
   subject { sound }
-  it 'has a valid factory' do 
+  it 'has a valid factory' do
     should be_valid
   end
 
@@ -15,8 +15,22 @@ describe Sound do
     it "returns a string" do
       sound.full_name.should be_a(String)
     end
-
   end
+
+  describe 'introspection' do
+    let(:m){create(:sound, :m)}
+    before do
+      create(:feature, :rounded)
+      m.save!
+    end
+    it "should respond to introspection" do
+      m.nasal?.should == true
+      m.fricative?.should == false
+      m.not_bilabial?.should == false
+      m.not_rounded?.should == true
+    end
+  end
+
   describe 'feature scopes' do
     before do
       create(:sound, :nasal, letter: "n")
@@ -35,7 +49,7 @@ describe Sound do
       @nasals.length.should == 2
       @bilabials.length.should == 2
       Sound.nasal.length.should == 2
-      Sound.bilabials.length.should == 2 
+      Sound.bilabials.length.should == 2
     end
 
     it "filters by negative feature" do
@@ -70,8 +84,8 @@ describe Sound do
     end
   end
 
-  describe '#letter' do 
-    before do 
+  describe '#letter' do
+    before do
       sound.save!
       @other_sound = build :sound, letter: sound.letter
     end

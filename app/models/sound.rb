@@ -1,8 +1,10 @@
 class Sound < ActiveRecord::Base
   include FeatureScopeable
-  
+
   # relations
   has_and_belongs_to_many :features, -> { uniq }
+  has_and_belongs_to_many :languages
+
   def feature_names
     features.map(&:name)
   end
@@ -32,11 +34,12 @@ class Sound < ActiveRecord::Base
 
   def self.method_missing(method_name, *args, &block)
     warm_features!
-    feature_name = method_name.to_s.singularize
+    feature_name = method_name.to_s.sub(/^no[tn]\_/, '').gsub(/\?!/, '').singularize
     if ft = Feature.find_by(name: feature_name)
       self.define_feature_scopes(feature_name)
       return self.send(method_name)
     end
+
     super(method_name, *args, &block)
   end
   def to_english
@@ -47,7 +50,7 @@ class Sound < ActiveRecord::Base
   #   letter
   # end
 
-  def to_api_query 
+  def to_api_query
     "/api/sounds/#{letter}"
   end
 end

@@ -18,10 +18,10 @@ gem 'turbolinks'
 gem 'will_paginate'
 gem 'simple_form'
 
-gem 'anjlab-bootstrap-rails', 
+gem 'anjlab-bootstrap-rails',
   require: 'bootstrap-rails',
   github: 'anjlab/bootstrap-rails'
-gem 'bootstrap-will_paginate', 
+gem 'bootstrap-will_paginate',
   github: 'yrgoldteeth/bootstrap-will_paginate'
 
 group :production do
@@ -29,6 +29,7 @@ group :production do
 end
 
 group :development do
+  gem 'wikipedia-client'
   gem 'guard'
   gem 'spork-rails', :github => 'sporkrb/spork-rails'
   gem 'guard-rspec'

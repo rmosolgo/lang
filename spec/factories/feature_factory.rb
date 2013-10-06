@@ -7,9 +7,9 @@ FactoryGirl.define do
       roundedness: [:rounded],
       height: [:open],
       manner: [:nasal, :fricative],
-      place: [:bilabial],
+      place: [:bilabial, :alveolar],
     }
-    
+
     feature_data.each do |f_type, f_names|
       f_names.each do |f_name|
         trait f_name do
@@ -20,4 +20,4 @@ FactoryGirl.define do
     end
   end
 end
-    
+

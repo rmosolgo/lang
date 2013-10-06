@@ -1,0 +1,2 @@
+class PhonemesController < DataValuesController
+end

@@ -1,0 +1,2 @@
+class LanguagesController < DataValuesController
+end

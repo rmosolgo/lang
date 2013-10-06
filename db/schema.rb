@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130919222624) do
+ActiveRecord::Schema.define(version: 20131006002351) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,19 @@ ActiveRecord::Schema.define(version: 20130919222624) do
 
   add_index "features_sounds", ["feature_id", "sound_id"], name: "index_features_sounds_on_feature_id_and_sound_id", using: :btree
   add_index "features_sounds", ["sound_id", "feature_id"], name: "index_features_sounds_on_sound_id_and_feature_id", using: :btree
+
+  create_table "languages", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "phonemes", force: true do |t|
+    t.integer  "sound_id"
+    t.integer  "language_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "sounds", force: true do |t|
     t.string   "letter"
