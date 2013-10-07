@@ -13,6 +13,7 @@ describe Language do
       lang.phonemes.build(sound: alveolar_fricative)
       lang.phonemes.build(sound: bilabial_nasal)
       lang.save!
+      Phoneme.warm_features!
     end
     it "has phonemes" do
       lang.phonemes.count.should == 2

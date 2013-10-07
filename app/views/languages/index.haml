@@ -1,0 +1,23 @@
+
+.row
+  %h1
+    Languages
+
+= render partial: "layouts/paging", locals: { items: @langs }
+
+%table.table
+  %thead
+    %tr
+      %th
+        Name
+      %th
+        Phonemes
+  %tbody
+    - @langs.each do |lang|
+      %tr
+        %td
+          = link_to lang.name, lang
+        %td
+          = lang.phonemes.count
+
+= render partial: "layouts/paging", locals: { items: @langs }

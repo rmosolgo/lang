@@ -8,4 +8,10 @@
       = @sound.full_name.split(" ").map { |f| link_to(f.dashify.capitalize, feature_name_path(f))}.join(" ").html_safe
 
 .row
-  
+  %h2
+    Languages
+  %ul
+    - @sound.languages.each do |lang|
+      %li
+        = link_to lang.name, lang
+

@@ -8,8 +8,6 @@ describe Sound do
     should be_valid
   end
 
-  it_behaves_like 'data value'
-
   describe '#full_name' do
     it {should respond_to(:full_name)}
     it "returns a string" do
@@ -21,7 +19,9 @@ describe Sound do
     let(:m){create(:sound, :m)}
     before do
       create(:feature, :rounded)
+      create(:feature, :fricative)
       m.save!
+      Sound.warm_features!
     end
     it "should respond to introspection" do
       m.nasal?.should == true

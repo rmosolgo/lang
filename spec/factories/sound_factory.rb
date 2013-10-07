@@ -18,7 +18,8 @@ FactoryGirl.define do
     {
       m: [:bilabial, :nasal],
       n: [:alveolar, :nasal],
-      s: [:alveolar, :fricative]
+      s: [:alveolar, :fricative],
+      b: [:bilabial],
     }.each do |key, values|
       trait key do
         after(:build) do |object|

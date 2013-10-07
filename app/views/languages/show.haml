@@ -1,0 +1,9 @@
+
+.row
+  %h1.page-header
+    = @lang.name
+.row
+  %h2
+    Phonology
+.row
+  = render partial: "sounds/ipa", locals: { alphabet: @lang.phonemes }

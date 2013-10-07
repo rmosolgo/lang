@@ -2,7 +2,8 @@ class Feature < ActiveRecord::Base
 
   # relations
   has_and_belongs_to_many :sounds, -> { uniq }
-  
+  has_and_belongs_to_many :phonemes, association_foreign_key: :sound_id, join_table: "features_sounds"
+
   # validations
   validates_uniqueness_of :name
 
@@ -11,7 +12,7 @@ class Feature < ActiveRecord::Base
   end
   include FeatureTypeScopeable
 
-  def self.method_missing(method_name, *args, &block)  
+  def self.method_missing(method_name, *args, &block)
     # possibly add a scope for a feature type
     possible_feature_type = method_name.to_s.singularize
     if self.feature_types.include?(possible_feature_type)
@@ -21,7 +22,7 @@ class Feature < ActiveRecord::Base
     end
 
     if Feature.find_by(name: method_name.to_s)
-      warm_feature_names!  
+      warm_feature_names!
       return  define_feature_name_scope(method_name.to_s)
     end
 
@@ -31,7 +32,7 @@ class Feature < ActiveRecord::Base
   # def to_param
   #   name
   # end
-  
+
   def to_english
     name
   end

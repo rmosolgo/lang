@@ -7,9 +7,9 @@ describe Feature do
 
   it {should be_valid}
   it_behaves_like "data value"
-  
+
   describe '.feature_types' do
-    before do 
+    before do
       create :feature, :rounded
       create :feature, :open
     end
@@ -18,7 +18,7 @@ describe Feature do
       Feature.feature_types.should == ["height", "roundedness"]
     end
 
-    describe "dynamic feature types" do 
+    describe "dynamic feature types" do
       it "accepts plural" do
         Feature.heights.should == Feature.where(feature_type: "height")
       end
@@ -37,9 +37,9 @@ describe Feature do
       Feature.rounded.should == Feature.find_by(name: "rounded")
     end
   end
-  
+
   describe '#name' do
-    before do 
+    before do
       feature.save!
       @other_feature = build :feature, name: feature.name
     end
@@ -49,9 +49,9 @@ describe Feature do
     end
   end
 
-  describe '#sounds' do 
-    before do 
-      3.times do 
+  describe '#sounds' do
+    before do
+      3.times do
         feature.sounds << build(:sound)
       end
       feature.save!

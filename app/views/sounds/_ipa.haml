@@ -1,0 +1,36 @@
+:ruby
+  consonant_rows = [
+    {name: "Nasal", sounds: alphabet.nasals.not_coarticulated},
+    {name: "Stop", sounds: alphabet.stops.not_coarticulated},
+    {name: "Sibilant", sounds: alphabet.sibilant.fricative},
+    {name: "Fricative", sounds: alphabet.non_sibilant.non_lateral.fricatives},
+    {name: "Approximant", sounds: alphabet.approximants.non_lateral.not_coarticulated},
+    {name: "Flap or Tap", sounds: alphabet.flap.non_lateral},
+    {name: "Trill", sounds: alphabet.trill},
+  ]
+
+  lateral_rows = [
+    {name: "Lateral Fricative", sounds: alphabet.lateral.fricative},
+    {name: "Lateral Approximant", sounds: alphabet.lateral.approximant},
+    {name: "Lateral Tap", sounds: alphabet.lateral.flap}
+  ]
+
+%table.table.table-condensed
+  %tr
+    %th
+    - Feature.places.each do |place|
+      %th.place
+        = place.name.capitalize
+    - consonant_rows.each do |row|
+      %tr
+        %th
+          = row[:name]
+        = render partial: 'sounds/sound_row', object: row[:sounds]
+    %tr.active
+      %th{colspan: Feature.places.count}
+        Laterals
+    - lateral_rows.each do |row|
+      %tr
+        %th
+          = row[:name].sub(/Lateral\s/, "")
+        = render partial: 'sounds/sound_row', object: row[:sounds]

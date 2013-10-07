@@ -44,8 +44,14 @@ Sound.find_each(&:destroy)
     raise "Feature #{f} not created." unless feature
     new_sound.features << feature
   end
-
   new_sound.save!
-
 end
+
+Language.destroy_all
+Language.wikipedia_names.each do |name|
+  Language.initialize_from_wikipedia(name, confirm: false)
+end
+
+
+
 

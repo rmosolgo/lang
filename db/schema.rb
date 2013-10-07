@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131006002351) do
+ActiveRecord::Schema.define(version: 20131006224433) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,9 +29,6 @@ ActiveRecord::Schema.define(version: 20131006002351) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "feature_sounds", ["feature_id", "sound_id"], name: "index_feature_sounds_on_feature_id_and_sound_id", using: :btree
-  add_index "feature_sounds", ["sound_id", "feature_id"], name: "index_feature_sounds_on_sound_id_and_feature_id", using: :btree
 
   create_table "features", force: true do |t|
     t.string   "name"

@@ -5,22 +5,4 @@
     International Phonetic Alphabet
 
 .row
-  %table.table.table-condensed
-    %tr
-      %th
-      - Feature.places.each do |place|
-        %th.place
-          = place.name.capitalize
-      - @consonant_rows.each do |row|
-        %tr
-          %th
-            = row[:name]
-          = render partial: 'sound_row', object: row[:sounds]
-      %tr.active
-        %th{colspan: Feature.places.count}
-          Laterals
-      - @lateral_rows.each do |row|
-        %tr
-          %th
-            = row[:name].sub(/Lateral\s/, "")
-          = render partial: 'sound_row', object: row[:sounds]
+  = render partial: "ipa", locals: { alphabet: @sounds}
