@@ -1,4 +1,7 @@
 - Feature.places.each_with_index do |place, idx|
-  %td
-    - if sound = sound_row.send(place.name)
-      = sound.map {|s| render(partial: "sounds/sound", object: s).strip }.join(", ").html_safe
+  - sounds = sound_row.send(place.name)
+  - [sounds[0], sounds[1]].each do |s|
+    %td.sound<>
+      - if s
+        = render(partial: "sounds/sound", object: s)
+

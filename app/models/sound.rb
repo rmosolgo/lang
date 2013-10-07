@@ -22,6 +22,14 @@ class Sound < ActiveRecord::Base
   ]
   FULL_NAME_ORDER = VOWEL_ORDER + CONSONANT_ORDER
 
+  def frequency(langs=Language)
+    lang_count = langs.count
+    if lang_count > 0
+      languages.count / (lang_count * 1.0)
+    else
+      0
+    end
+  end
   def to_s
     letter
   end

@@ -15,15 +15,16 @@
     {name: "Lateral Tap", sounds: alphabet.lateral.flap}
   ]
 
-%table.table.table-condensed
+%table.ipa.table.table-condensed
   %tr
     %th
     - Feature.places.each do |place|
-      %th.place
-        = place.name.capitalize
+      %th.place{colspan: 2}
+        - pn = place.name.capitalize.gsub(/_/, "-")
+        = pn
     - consonant_rows.each do |row|
       %tr
-        %th
+        %th.manner
           = row[:name]
         = render partial: 'sounds/sound_row', object: row[:sounds]
     %tr.active
@@ -31,6 +32,6 @@
         Laterals
     - lateral_rows.each do |row|
       %tr
-        %th
+        %th.manner
           = row[:name].sub(/Lateral\s/, "")
         = render partial: 'sounds/sound_row', object: row[:sounds]

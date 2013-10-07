@@ -2,7 +2,7 @@
 CONSONANT_PLACES = [
   'labial',
   'bilabial',
-  'labiodental',
+  'labio_dental',
   'dental',
   'alveolar',
   'post_alveolar',

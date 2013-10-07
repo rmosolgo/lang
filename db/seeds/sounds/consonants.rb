@@ -2,7 +2,7 @@
 PULMONIC_CONSONANTS = [
   { letter: "m̥", features: %w{pulmonic voiceless bilabial nasal} },
   { letter: "m", features: %w{pulmonic voiced bilabial nasal} },
-  { letter: "ɱ", features: %w{pulmonic voiced labiodental nasal} },
+  { letter: "ɱ", features: %w{pulmonic voiced labio_dental nasal} },
   { letter: "n̪", features: %w{pulmonic voiced dental nasal} },
   { letter: "n̥", features: %w{pulmonic voiceless alveolar nasal} },
   { letter: "n", features: %w{pulmonic voiced alveolar nasal} },
@@ -17,8 +17,8 @@ PULMONIC_CONSONANTS = [
   { letter: "ɴ", features: %w{pulmonic voiced uvular nasal} },
   { letter: "p", features: %w{pulmonic voiceless bilabial stop} },
   { letter: "b", features: %w{pulmonic voiced bilabial stop} },
-  { letter: "p̪", features: %w{pulmonic voiceless labiodental stop} },
-  { letter: "b̪", features: %w{pulmonic voiced labiodental stop} },
+  { letter: "p̪", features: %w{pulmonic voiceless labio_dental stop} },
+  { letter: "b̪", features: %w{pulmonic voiced labio_dental stop} },
   { letter: "t̪", features: %w{pulmonic voiceless dental stop} },
   { letter: "d̪", features: %w{pulmonic voiced dental stop} },
   { letter: "t", features: %w{pulmonic voiceless alveolar stop} },
@@ -45,8 +45,8 @@ PULMONIC_CONSONANTS = [
   { letter: "ʑ", features: %w{pulmonic voiced alveolo_palatal sibilant fricative} },
   { letter: "ɸ", features: %w{pulmonic voiceless bilabial fricative} },
   { letter: "β", features: %w{pulmonic voiced bilabial fricative} },
-  { letter: "f", features: %w{pulmonic voiceless labiodental fricative} },
-  { letter: "v", features: %w{pulmonic voiced labiodental fricative} },
+  { letter: "f", features: %w{pulmonic voiceless labio_dental fricative} },
+  { letter: "v", features: %w{pulmonic voiced labio_dental fricative} },
   { letter: "θ", features: %w{pulmonic voiceless dental fricative} },
   { letter: "ð", features: %w{pulmonic voiced dental fricative} },
   { letter: "θ̱", features: %w{pulmonic voiceless alveolar fricative} },
@@ -63,14 +63,14 @@ PULMONIC_CONSONANTS = [
   { letter: "ʢ", features: %w{pulmonic voiced epiglottal fricative} },
   { letter: "h", features: %w{pulmonic voiceless glottal fricative} },
   { letter: "ɦ", features: %w{pulmonic voiced glottal fricative} },
-  { letter: "ʋ", features: %w{pulmonic voiced labiodental approximant} },
+  { letter: "ʋ", features: %w{pulmonic voiced labio_dental approximant} },
   { letter: "ɹ", features: %w{pulmonic voiced alveolar approximant} },
   { letter: "ɻ", features: %w{pulmonic voiced retroflex approximant} },
   { letter: "j̊", features: %w{pulmonic voiceless palatal approximant} },
   { letter: "j", features: %w{pulmonic voiced palatal approximant} },
   { letter: "ɰ", features: %w{pulmonic voiced velar approximant} },
   { letter: "ⱱ̟", features: %w{pulmonic voiced bilabial flap} },
-  { letter: "ⱱ", features: %w{pulmonic voiced labiodental flap} },
+  { letter: "ⱱ", features: %w{pulmonic voiced labio_dental flap} },
   { letter: "ɾ", features: %w{pulmonic voiced alveolar flap} },
   { letter: "ɽ", features: %w{pulmonic voiced retroflex flap} },
   { letter: "ɢ̆", features: %w{pulmonic voiced uvular flap} },
@@ -146,8 +146,8 @@ EJECTIVES = [
   { letter: "qχʼ", features: %w{} },
 ]
 AFFRICATES = [
-  { letter: "p̪f", features: %w{pulmonic voiceless labiodental affricate} },
-  { letter: "b̪v", features: %w{pulmonic voiced labiodental affricate} },
+  { letter: "p̪f", features: %w{pulmonic voiceless labio_dental affricate} },
+  { letter: "b̪v", features: %w{pulmonic voiced labio_dental affricate} },
   { letter: "ts", features: %w{pulmonic voiceless alveolar sibilant affricate} },
   { letter: "dz", features: %w{pulmonic voiced alveolar sibilant affricate} },
   { letter: "t̪s̪", features: %w{pulmonic voiceless dental sibilant affricate} },
@@ -184,10 +184,10 @@ COARTICULATED_CONSONANTS=[
 ]
 
 CONSONANTS = (
-  PULMONIC_CONSONANTS + 
-  NON_PULMONIC_CONSONANTS + 
+  PULMONIC_CONSONANTS +
+  NON_PULMONIC_CONSONANTS +
   # EJECTIVES +
-  AFFRICATES + 
+  AFFRICATES +
   COARTICULATED_CONSONANTS
 )
 

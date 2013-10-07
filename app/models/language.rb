@@ -1,7 +1,7 @@
 class Language < ActiveRecord::Base
   include WikiSeedable
 
-  has_many :phonemes
+  has_many :phonemes, -> { uniq }
   validates :name, presence: true, uniqueness: true
 
   def to_param

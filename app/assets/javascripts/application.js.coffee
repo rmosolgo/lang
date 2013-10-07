@@ -16,3 +16,14 @@
 #= require twitter/bootstrap
 #= require_tree .
 
+page_ready = ->
+  $(".tooltipped").tooltip()
+  $("td.sound").each ->
+    sound = $(this)
+    fq = parseFloat(sound.find("span").attr("data-frequency"))
+    opacity = (fq * 0.6)
+    if opacity > 0
+      opacity += 0.1
+    sound.css("background-color", "rgba(247, 128, 147,#{opacity}")
+$(document).on "page:load", page_ready
+$(document).on "ready", page_ready

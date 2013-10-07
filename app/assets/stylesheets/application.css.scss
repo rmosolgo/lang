@@ -12,3 +12,28 @@
  *= require_tree .
  */
 @import "twitter/bootstrap";
+
+
+table.table.ipa {
+  $sound_width: 18px;
+  td, th {
+    line-height: 1.1em;
+    padding:2px;
+    word-wrap: break-word;
+    &.place {
+      width: $sound_width * 2;
+      min-width: $sound_width * 2;
+      max-width: $sound_width * 2;
+    }
+    &.manner{
+      width: $sound_width * 3;
+    }
+    &.sound {
+      text-align: center;
+      width: $sound_width * 2;
+      border: 1px solid #ddd;
+      &:empty {
+      }
+    }
+  }
+}
