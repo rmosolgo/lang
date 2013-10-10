@@ -13,6 +13,14 @@ class Phoneme < ActiveRecord::Base
 
   delegate :frequency, :letter, :feature_names, to: :sound, allow_nil: true
 
+  def self.most
+    Phoneme.select("language_id, count(*) as count").group(:language_id).order("count desc").first.count
+  end
+
+  def self.mean
+    Phoneme.connection.execute("select avg(count) from (select count(*) as count from phonemes group by language_id) as a")[0]["avg"].to_f
+  end
+
   def self.method_missing(method_name, *args, &block)
     warm_features!
     feature_name = method_name.to_s.sub(/^no[tn]\_/, '').gsub(/\?!/, '').singularize

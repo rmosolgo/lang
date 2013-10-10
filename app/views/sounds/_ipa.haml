@@ -24,40 +24,46 @@
     {name: "Near-low", sounds: alphabet.near_low },
     {name: "Low", sounds: alphabet.low },
   ]
+= cache alphabet do
+  .row
+    .col-md-12
+      %h3
+        Consonants
+      %table.ipa.ipa-consonants.table.table-condensed
+        %tr
+          %th
+          - Feature.places.each do |place|
+            %th.place{colspan: 2}
+              - pn = place.name.capitalize.gsub(/_/, "-")
+              = pn
+          - consonant_rows.each do |row|
+            %tr
+              %th.manner
+                = row[:name]
+              = render partial: 'sounds/consonant_row', object: row[:sounds]
+          %tr.active
+            %th{colspan: Feature.places.count * 2}
+              Laterals
+          - lateral_rows.each do |row|
+            %tr
+              %th.manner
+                = row[:name].sub(/Lateral\s/, "")
+              = render partial: 'sounds/consonant_row', object: row[:sounds]
+  .row
 
-.row
-  .col-md-12
-    %table.ipa.ipa-consonants.table.table-condensed
-      %tr
-        %th
-        - Feature.places.each do |place|
-          %th.place{colspan: 2}
-            - pn = place.name.capitalize.gsub(/_/, "-")
-            = pn
-        - consonant_rows.each do |row|
-          %tr
-            %th.manner
-              = row[:name]
-            = render partial: 'sounds/consonant_row', object: row[:sounds]
-        %tr.active
-          %th{colspan: Feature.places.count * 2}
-            Laterals
-        - lateral_rows.each do |row|
-          %tr
-            %th.manner
-              = row[:name].sub(/Lateral\s/, "")
-            = render partial: 'sounds/consonant_row', object: row[:sounds]
-.row
-  .col-md-4
-    %table.ipa.ipa-vowels.table.table-condensed
-      %tr
-        %th
-        - Feature.backnesses.each do |backness|
-          %th.backness{colspan: 2}
-            - bn = backness.name.capitalize.gsub(/_/, "-")
-            = bn
-        - vowel_rows.each do |row|
-          %tr
-            %th.height
-              = row[:name]
-            = render partial: 'sounds/vowel_row', object: row[:sounds]
+  .row
+    .col-md-4
+      %h3
+        Vowels
+      %table.ipa.ipa-vowels.table.table-condensed
+        %tr
+          %th
+          - Feature.backnesses.each do |backness|
+            %th.backness{colspan: 2}
+              - bn = backness.name.capitalize.gsub(/_/, "-")
+              = bn
+          - vowel_rows.each do |row|
+            %tr
+              %th.height
+                = row[:name]
+              = render partial: 'sounds/vowel_row', object: row[:sounds]

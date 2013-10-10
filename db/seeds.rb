@@ -16,6 +16,8 @@ FEATURE_SETS = [
 
 ]
 
+FeatureSound.destroy_all
+
 Feature.find_each(&:destroy)
 FEATURE_SETS.each do |set|
   set[:values].each do |n|
@@ -47,6 +49,7 @@ Sound.find_each(&:destroy)
   new_sound.save!
 end
 
+Phoneme.destroy_all
 Language.destroy_all
 Language.wikipedia_names.each do |name|
   Language.initialize_from_wikipedia(name, confirm: false)
