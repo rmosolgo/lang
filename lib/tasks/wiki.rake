@@ -2,7 +2,7 @@ namespace :wiki do
   require 'wikipedia'
   desc "Fetch language names"
   task  langs: :environment do
-    Language.wikipedia_names.each { |n| p n}
+    Language.wikipedia_names
   end
 
   desc "Fetch info for a given language"

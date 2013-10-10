@@ -1,7 +1,8 @@
 class Feature < ActiveRecord::Base
 
   # relations
-  has_and_belongs_to_many :sounds, -> { uniq }
+  has_many :feature_sounds,  dependent: :destroy
+  has_many :sounds, through: :feature_sounds
   has_and_belongs_to_many :phonemes, association_foreign_key: :sound_id, join_table: "features_sounds"
 
   # validations

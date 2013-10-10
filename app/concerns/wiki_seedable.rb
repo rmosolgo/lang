@@ -3,16 +3,22 @@ module WikiSeedable
   extend ActiveSupport::Concern
 
   module ClassMethods
-    WIKIPEDIA_PAGES = ["List of languages by number of native speakers"]
-    LANGUAGE_LINK = /\|\s'''\[\[([\w\s]+)\|([\w\s]+)\]\]'''\s\|\|\s\d+/
+    WIKIPEDIA_PAGES = [
+      "List of languages by number of native speakers",
+      "List of official languages",
+      "list of largest languages without official status"]
+    LANGUAGE_LINK = /'''\[\[([\w\s]+\slanguages?)\|([\w\s]+)\]\]'''/
     def wikipedia_names
       names = []
       WIKIPEDIA_PAGES.each do |page_name|
+        p "Searching #{page_name}"
         page = Wikipedia.find(page_name)
         page.content.scan(LANGUAGE_LINK) do
           names << $1
         end
       end
+      names.compact.uniq
+      p "Found: #{names.join(", ")}"
       names
     end
 

@@ -1,0 +1,7 @@
+- Feature.backnesses.each_with_index do |backness, idx|
+  - sounds = vowel_row.send(backness.name)
+  - [sounds[0], sounds[1]].each do |s|
+    %td.sound<>
+      - if s
+        = render(partial: "sounds/sound", object: s)
+

@@ -2,10 +2,10 @@ class Sound < ActiveRecord::Base
   include FeatureScopeable
 
   # relations
-  has_many :feature_sounds
+  has_many :feature_sounds, dependent: :destroy
   has_many :features, through: :feature_sounds
   has_many :phonemes
-  has_many :languages, through: :phonemes
+  has_many :languages, through: :phonemes, uniq: true
 
   def feature_names
     features.map(&:name)

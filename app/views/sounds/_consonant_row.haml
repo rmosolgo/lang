@@ -1,5 +1,5 @@
 - Feature.places.each_with_index do |place, idx|
-  - sounds = sound_row.send(place.name)
+  - sounds = consonant_row.send(place.name)
   - [sounds[0], sounds[1]].each do |s|
     %td.sound<>
       - if s

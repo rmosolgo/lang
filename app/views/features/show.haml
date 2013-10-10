@@ -6,7 +6,7 @@
     = @feature.name.titleize
 
 .row
-  %h2 
+  %h2
     Sounds
   %p
-    = @feature.sounds.map {|s| link_to(s, sound_letter_path(s.letter))}.join(", ").html_safe
+    = @feature.sounds.map {|s| link_to(s)}.join(", ").html_safe

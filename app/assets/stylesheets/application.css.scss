@@ -15,18 +15,22 @@
 
 
 table.table.ipa {
+  width: 100%;
   $sound_width: 18px;
   td, th {
     line-height: 1.1em;
     padding:2px;
     word-wrap: break-word;
-    &.place {
+    &.place, &.backness {
       width: $sound_width * 2;
       min-width: $sound_width * 2;
       max-width: $sound_width * 2;
     }
-    &.manner{
-      width: $sound_width * 3;
+    &.manner, &.height{
+      $row_heading_width: 92px;
+      width: $row_heading_width;
+      min-width: $row_heading_width;
+      max-width: $row_heading_width;
     }
     &.sound {
       text-align: center;
