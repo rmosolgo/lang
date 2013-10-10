@@ -65,7 +65,8 @@ module WikiSeedable
         sound = Sound.find_by(letter: letter)
         if sound
           # raise "Couldn't find a Sound for #{letter}!" unless sound
-          lang.phonemes.create(sound: sound)
+          ph = lang.phonemes.find_or_initialize_by(sound: sound)
+          ph.save
         end
       end
     end

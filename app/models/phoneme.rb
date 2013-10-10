@@ -7,6 +7,7 @@ class Phoneme < ActiveRecord::Base
 
   belongs_to :language, inverse_of: :phonemes
   validates_presence_of :language_id, :sound_id
+  validates_uniqueness_of :sound_id, scope: :language_id
 
   # default_scope {includes(:sound).order("sounds.letter")}
 
