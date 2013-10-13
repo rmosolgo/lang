@@ -13,7 +13,6 @@
  */
 @import "twitter/bootstrap";
 
-
 table.table.ipa {
   width: 100%;
   $sound_width: 18px;
@@ -38,6 +37,12 @@ table.table.ipa {
       border: 1px solid #ddd;
       &:empty {
       }
+    &.impossible {
+      span { font-weight: 100; }
+      color: #aaa;
+      background-color: #eee;
+    }
+
     }
   }
 }

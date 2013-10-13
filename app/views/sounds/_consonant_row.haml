@@ -1,7 +1,10 @@
-- Feature.places.each_with_index do |place, idx|
-  - sounds = consonant_row.send(place.name)
-  - [sounds[0], sounds[1]].each do |s|
-    %td.sound<>
-      - if s
-        = render(partial: "sounds/sound", object: s)
-
+- @places.each_with_index do |place, idx|
+  - sounds = consonant_row[:sounds].send(place.name)
+  - manner_names = consonant_row[:features].present?  ? consonant_row[:features].map(&:name) : consonant_row[:name].downcase.split(" ").map(&:underscore)
+  - classes = (manner_names + [place.name])
+  %td.sound{ class: (classes + ["voiceless"] ).join(" ")}<>
+    - if s = sounds.voiceless[0]
+      = render(partial: "sounds/sound", object: s)
+  %td.sound{ class: (classes +  ["voiced"]).join(" ") }<>
+    - if s = sounds.voiced[0]
+      = render(partial: "sounds/sound", object: s)

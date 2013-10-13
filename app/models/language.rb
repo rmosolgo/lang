@@ -6,8 +6,9 @@ class Language < ActiveRecord::Base
 
   # eventually counter-cache these:
   def self.most_phonemes
-    lang_id = Phoneme.select("language_id, count(*) as count").group(:language_id).order("count desc").first.language_id
-    Language.find(lang_id)
+    groups = Phoneme.select("language_id, count(*) as count").group(:language_id).having("count(*) = ? ", Phoneme.most)
+    lang_ids = groups.map(&:language_id)
+    Language.where("id in(?)", lang_ids)
   end
 
 

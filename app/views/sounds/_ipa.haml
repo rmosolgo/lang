@@ -1,69 +1,68 @@
-:ruby
-  consonant_rows = [
-    {name: "Nasal", sounds: alphabet.nasals.not_coarticulated},
-    {name: "Stop", sounds: alphabet.stops.not_coarticulated},
-    {name: "Sibilant", sounds: alphabet.sibilant.fricative},
-    {name: "Fricative", sounds: alphabet.non_sibilant.non_lateral.fricatives},
-    {name: "Approximant", sounds: alphabet.approximants.non_lateral.not_coarticulated},
-    {name: "Flap or Tap", sounds: alphabet.flap.non_lateral},
-    {name: "Trill", sounds: alphabet.trill},
-  ]
+- cache alphabet do
+  :ruby
+    consonant_rows = [
+      {name: "Nasal", sounds: alphabet.nasals.not_coarticulated },
+      {name: "Stop", sounds: alphabet.stops.not_coarticulated},
+      {name: "Sibilant", sounds: alphabet.sibilant.fricative},
+      {name: "Fricative", sounds: alphabet.non_sibilant.non_lateral.fricatives},
+      {name: "Approximant", sounds: alphabet.approximants.non_lateral.not_coarticulated},
+      {name: "Flap or Tap", sounds: alphabet.flap.non_lateral, features: [Feature.flap]},
+      {name: "Trill", sounds: alphabet.trill},
+    ]
 
-  lateral_rows = [
-    {name: "Lateral Fricative", sounds: alphabet.lateral.fricative},
-    {name: "Lateral Approximant", sounds: alphabet.lateral.approximant},
-    {name: "Lateral Tap", sounds: alphabet.lateral.flap}
-  ]
+    lateral_rows = [
+      {name: "Lateral Fricative", sounds: alphabet.lateral.fricative},
+      {name: "Lateral Approximant", sounds: alphabet.lateral.approximant},
+      {name: "Lateral Tap", sounds: alphabet.lateral.flap, features: [Feature.flap, Feature.lateral]}
+    ]
 
-  vowel_rows = [
-    {name: "High", sounds: alphabet.high },
-    {name: "Near-high", sounds: alphabet.near_high },
-    {name: "High-mid", sounds: alphabet.high_mid },
-    {name: "Mid", sounds: alphabet.mid },
-    {name: "Low-mid", sounds: alphabet.low_mid },
-    {name: "Near-low", sounds: alphabet.near_low },
-    {name: "Low", sounds: alphabet.low },
-  ]
-
-.row
-  .col-md-12
-    %h3
-      Consonants
-    %table.ipa.ipa-consonants.table.table-condensed
-      %tr
-        %th
-        - Feature.places.each do |place|
-          %th.place{colspan: 2}
-            - pn = place.name.capitalize.gsub(/_/, "-")
-            = pn
-        - consonant_rows.each do |row|
-          %tr
-            %th.manner
-              = row[:name]
-            = render partial: 'sounds/consonant_row', object: row[:sounds]
-        %tr.active
-          %th{colspan: Feature.places.count * 2}
-            Laterals
-        - lateral_rows.each do |row|
-          %tr
-            %th.manner
-              = row[:name].sub(/Lateral\s/, "")
-            = render partial: 'sounds/consonant_row', object: row[:sounds]
-.row
-
-.row
-  .col-md-4
-    %h3
-      Vowels
-    %table.ipa.ipa-vowels.table.table-condensed
-      %tr
-        %th
-        - Feature.backnesses.each do |backness|
-          %th.backness{colspan: 2}
-            - bn = backness.name.capitalize.gsub(/_/, "-")
-            = bn
-        - vowel_rows.each do |row|
-          %tr
-            %th.height
-              = row[:name]
-            = render partial: 'sounds/vowel_row', object: row[:sounds]
+    vowel_rows = [
+      {name: "High", sounds: alphabet.high },
+      {name: "Near-high", sounds: alphabet.near_high },
+      {name: "High-mid", sounds: alphabet.high_mid },
+      {name: "Mid", sounds: alphabet.mid },
+      {name: "Low-mid", sounds: alphabet.low_mid },
+      {name: "Near-low", sounds: alphabet.near_low },
+      {name: "Low", sounds: alphabet.low },
+    ]
+    @places = Feature.places.where("name != ?", "labial")
+  .row
+    .col-md-12
+      %h3
+        Consonants
+      %table.ipa.ipa-consonants.table.table-condensed
+        %tr
+          %th
+          - @places.each do |place|
+            %th.place{colspan: 2}
+              - pn = place.name.capitalize.gsub(/_/, "-")
+              = pn
+          - consonant_rows.each do |row|
+            %tr
+              %th.manner
+                = row[:name]
+              = render partial: 'sounds/consonant_row', object: row
+          %tr.active
+            %th{colspan: (Feature.places.count * 2) + 1}
+              Laterals
+          - lateral_rows.each do |row|
+            %tr
+              %th.manner
+                = row[:name].sub(/Lateral\s/, "")
+              = render partial: 'sounds/consonant_row', object: row
+  .row
+    .col-md-4
+      %h3
+        Vowels
+      %table.ipa.ipa-vowels.table.table-condensed
+        %tr
+          %th
+          - Feature.backnesses.each do |backness|
+            %th.backness{colspan: 2}
+              - bn = backness.name.capitalize.gsub(/_/, "-")
+              = bn
+          - vowel_rows.each do |row|
+            %tr
+              %th.height
+                = row[:name]
+              = render partial: 'sounds/vowel_row', object: row[:sounds]
