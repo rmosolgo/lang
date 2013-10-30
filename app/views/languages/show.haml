@@ -13,29 +13,32 @@
           %th Metric
           %th Score
           %th Detail
+          %th Min
           %th Mean
           %th Max
       %tbody
-        %tr.language_metric
-          %td Complexity
+        - @lang.language_metric_values.each do |metric_value|
+          %tr.language_metric
+          %td
+            = metric_value.language_metric
           %td{style: "width: 200px;"}
             .progress
-              .progress-bar{aria: { valuenow: @lang.phonemic_complexity * 100, valuemin: 0, valuemax: 100}, style: "width: #{@lang.percent_of_max_phonemes * 100}%;"}
-                - percentile = (@lang.percent_of_max_phonemes * 100).round
-                = "#{percentile}#{percentile.ordinal} %"
+              .progress-bar{aria: { valuenow: metric_value.percentile * 100, valuemin: 0, valuemax: 100}, style: "width: #{metric_value.percentile * 100}%;"}
+                = "#{(metric_value.percentile * 100).round.ordinalize } %"
           %td
             = @lang.name
-            has
-            = @lang.phonemes.size
-            phonemes,
-            = @lang.phonemic_complexity.round(2)
-            times the average.
+            scores
+            = metric_value.value.round(1)
+            for
+            = metric_value.language_metric
           %td
-            = Phoneme.mean.round(1)
+            %span{class: "btn-link tooltipped", "data-title" => metric_value.min_languages.map(&:name).join(", ") }<>
+              = metric_value.min.round(1)
           %td
-            %span{class: "btn-link tooltipped", "data-title" => Language.most_phonemes.map(&:name).join(", ") }<>
-              = Phoneme.most
-
+            = metric_value.language_metric.mean.round(1)
+          %td
+            %span{class: "btn-link tooltipped", "data-title" => metric_value.max_languages.map(&:name).join(", ") }<>
+              = metric_value.max.round(1)
   .row
     %h2
       Phonology

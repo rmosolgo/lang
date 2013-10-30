@@ -1,27 +1,10 @@
 class Language < ActiveRecord::Base
   include WikiSeedable
 
-  has_many :phonemes, dependent: :destroy, uniq: true
+  has_many :phonemes, -> { uniq },  dependent: :destroy
   validates :name, presence: true, uniqueness: true
-
-  # eventually counter-cache these:
-  def self.most_phonemes
-    groups = Phoneme.select("language_id, count(*) as count").group(:language_id).having("count(*) = ? ", Phoneme.most)
-    lang_ids = groups.map(&:language_id)
-    Language.where("id in(?)", lang_ids)
-  end
-
-
-  def phonemic_complexity
-    # 1 is mean
-    own_phonemes = phonemes.count * 1.0
-    own_phonemes / Phoneme.mean
-  end
-
-  def percent_of_max_phonemes
-    own_phonemes = phonemes.count * 1.0
-    own_phonemes / Phoneme.most
-  end
+  has_many :language_metric_values
+  has_many :language_metrics, through: :language_metric_values
 
   def to_param
     name

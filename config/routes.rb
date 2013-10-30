@@ -1,5 +1,8 @@
 Lang::Application.routes.draw do
 
+  get "/batman/(*redirect_path)", to: "batman#index", constraints: lambda { |request| request.format == "text/html" }
+
+
   root 'sounds#index'
   get "/about", to: 'static_pages#about', as: "about"
 

@@ -7,8 +7,11 @@ gem 'sass-rails', '~> 4.0.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'unicorn'
+gem "active_model_serializers"
+gem 'batman-rails', '~> 0.15'
 
 gem 'haml', '~> 4.0.0'
+gem 'haml_assets'
 
 gem 'wikipedia-client'
 

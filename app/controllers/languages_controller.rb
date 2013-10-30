@@ -6,5 +6,9 @@ class LanguagesController < DataValuesController
 
   def show
     @lang = Language.find_by(name: params[:id])
+    respond_to do |format|
+      format.html
+      format.json { render json: @lang }
+    end
   end
 end

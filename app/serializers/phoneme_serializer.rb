@@ -1,0 +1,2 @@
+class PhonemeSerializer < SoundSerializer
+end

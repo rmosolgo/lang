@@ -1,0 +1,1 @@
+class Lang.ApplicationController extends Batman.Controller

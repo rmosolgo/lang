@@ -15,6 +15,12 @@
 #   inflect.acronym 'RESTful'
 # end
 
+class ::Float
+  def ordinalize
+    "#{self}#{self.floor.ordinalize}"
+  end
+end
+
 class ::String
   def dashify
     self.gsub(/_/, "-")
