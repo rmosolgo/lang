@@ -55,6 +55,8 @@ Language.wikipedia_names.each do |name|
   Language.initialize_from_wikipedia(name, confirm: false)
 end
 
+LanguageMetrics.seed!
+
 
 
 
