@@ -3,11 +3,13 @@ module WikiSeedable
   extend ActiveSupport::Concern
 
   module ClassMethods
+
     WIKIPEDIA_PAGES = [
       "List of languages by number of native speakers",
       "List of official languages",
       "list of largest languages without official status"]
     LANGUAGE_LINK = /'''\[\[([\w\s]+\slanguages?)\|([\w\s]+)\]\]'''/
+
     def wikipedia_names
       names = []
       WIKIPEDIA_PAGES.each do |page_name|
@@ -69,6 +71,14 @@ module WikiSeedable
           ph.save
         end
       end
+    end
+
+    # any category that mentions language:
+    CATEGORY = /\[\[Category:(.*[lL]anguages?.*)\]\]/
+
+    def categories_for(page)
+      categories = []
+      categories += page.content.scan(CATEGORY).map(&:first)
     end
   end
 end
