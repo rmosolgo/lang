@@ -17,4 +17,6 @@ Lang::Application.routes.draw do
   resources :languages do
     resources :phonemes
   end
+  resources :tags
+  resources :taggings
 end

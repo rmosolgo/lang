@@ -19,8 +19,8 @@ module WikiSeedable
           names << $1
         end
       end
-      names.compact.uniq
-      p "Found: #{names.join(", ")}"
+      names = names.compact.uniq
+      p "Found #{names.length}: #{names.join(", ")}"
       names
     end
 
@@ -44,8 +44,6 @@ module WikiSeedable
 
       found_letters = scan_for_letters(page.content)
 
-
-      # phonology_main_page_regex = /\{\{Main\|\s#{language_name}\sphonology\}\}/
       phonology_page = Wikipedia.find("#{language_name} phonology")
 
       if phonology_page.content.present?
@@ -71,14 +69,58 @@ module WikiSeedable
           ph.save
         end
       end
+
+      lang.categories_from!(page)
+
     end
+  end
+
+  included do
 
     # any category that mentions language:
     CATEGORY = /\[\[Category:(.*[lL]anguages?.*)\]\]/
 
-    def categories_for(page)
+
+    def categories_from!(page)
       categories = []
       categories += page.content.scan(CATEGORY).map(&:first)
+
+      # get info box
+      infobox = page.content[/\{\{Infobox language.*?\}\}\n+'''/m]
+      return unless infobox.present?
+      # yank stuff out of it
+      families = infobox
+        .scan(/\|fam[\w\s]*=(.*?)\n/m)
+        .map { |f| f.first.scan(/(?:\[\[[\w\s]*\|)?([\w\s]+)(?:\]\])?/).flatten.first.strip }
+        .select {|f| f.present? }
+        .map { |f| "#{f} family"}
+      states = (infobox[/\|states=(.*?)\|/m] || "")
+        .scan(/\[\[(.*?)\]\]/)
+        .map {|s| s.first.strip }
+        .select {|f| f.present? }
+        .map {|s| "Languages of #{s.capitalize}"}
+      names = infobox.scan(/\|[\w\s]*name[\w\s]*=(.*?)\n/m)
+        .map(&:first)
+        .map {|n|n.split(",")}
+        .flatten.map(&:strip)
+      # speakers =
+      scripts = (infobox[/\|[\w\s]*script[\w\s]*=(.*?)\n\|/m]|| "")
+        .scan(/\[\[[\w\s]+\|(.*?)\]\]/m)
+        .map(&:first)
+        .map {|n|n.split(",")}.flatten.map(&:strip)
+
+      all_tags = [families, names, categories, states]
+        .flatten
+        .map(&:strip)
+        .uniq
+        .select { |t| t =~ /^[\w\s]+$/}
+
+      all_tags.each do |category|
+        tag = Tag.find_or_create_by(name: category)
+        self.tags << tag
+      end
+      p "Adding #{tags.count} tags to #{name}: #{tags.map(&:name).join(", ")}"
+      self.save
     end
   end
 end

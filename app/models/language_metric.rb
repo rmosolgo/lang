@@ -1,5 +1,5 @@
 class LanguageMetric < ActiveRecord::Base
-  has_many :language_metric_values
+  has_many :language_metric_values, dependent: :destroy
   has_many :languages, through: :language_metric_values
 
   def to_s
@@ -13,7 +13,7 @@ class LanguageMetric < ActiveRecord::Base
 
   def min_languages
     # allows for rounding issues:
-    language_metric_values.where(value: (min * 0.95)..(min * 1.05)).includes(:language).map(&:language)
+    langs = language_metric_values.where(value: (min * 0.95)..(min * 1.05)).includes(:language).map(&:language)
   end
 
   def stats!

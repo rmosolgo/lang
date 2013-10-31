@@ -49,11 +49,15 @@ Sound.find_each(&:destroy)
   new_sound.save!
 end
 
+Tag.destroy_all
+Tagging.destroy_all
 Phoneme.destroy_all
 Language.destroy_all
 Language.wikipedia_names.each do |name|
   Language.initialize_from_wikipedia(name, confirm: false)
 end
+
+LanguageMetric.destroy_all
 
 LanguageMetrics.seed!
 

@@ -45,3 +45,11 @@
 
   .row
     = render partial: "sounds/ipa", locals: { alphabet: @lang.phonemes }
+
+  .row
+    %h2
+      Tags
+    %ul.list-inline
+      - @lang.tags.each do |tag|
+        %li
+          = link_to tag, tag
